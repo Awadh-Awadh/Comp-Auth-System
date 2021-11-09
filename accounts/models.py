@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseU
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 
-class CustomBaseUser(BaseUserManager):
+class CustomUserManager(BaseUserManager):
     def create_user(self, email, user_name, first_name, password, **others_fields):
 
       if not email:
@@ -16,7 +16,23 @@ class CustomBaseUser(BaseUserManager):
       user.set_password(password)
       user.save()
       return user
+    def create_superuser(self, email, user_name, first_name, password, **other_fields):
+        other_fields.setdefault('is_staff', True)
+        other_fields.setdefault('is_superuser', True)
+        other_fields.setdefault('is_active',True)
 
+        if other_fields.get('is_staff') is not True:
+          raise ValueError(
+            "Super user must be assigned to is_stuff=True"
+          )
+
+        if other_fields.get('is_superuser') is not True:
+            raise ValueError(
+              "Super user must be assigned to is_superuser=True"
+
+            )
+
+        return self.create_user(email, user_name, first_name, password, **other_fields)
 
 
 
@@ -33,9 +49,10 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
      about = models.CharField(_("about"), max_length=500, blank = True)
      is_staff = models.BooleanField(default= False)
      is_active = models.BooleanField(default = False)
+     objects = CustomUserManager()
 
-     USERNAME_FIELD = 'email'
-     REQUIRED_FIELDS = ['user_name']
+     USERNAME_FIELD = 'email' or 'user_name'
+     REQUIRED_FIELDS = ['user_name', 'first_name']
 
      def __str__(self):
          return self.user_name
