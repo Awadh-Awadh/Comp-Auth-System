@@ -58,3 +58,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
          return self.user_name
      
      
+class Profile(models.Model):
+  user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+  pp = ...
+  
