@@ -1,10 +1,16 @@
-{% extends 'account/base.html' %}
+{% extends 'accounts/base.html' %}
 
 
 
 {% block content %}
+{% load crispy_forms_tags %}
+  <h1>Register Your Account</h1>
+  <div class="form" method = "POST">
 
-  <h1>Awadh Said</h1>
+    <div class="inner">
+      {{ form|crispy }}
+    </div>
+  </div>
 
 
 
