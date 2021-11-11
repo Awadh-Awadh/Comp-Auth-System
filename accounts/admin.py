@@ -6,10 +6,10 @@ from .models import CustomUser, Profile
 # Register your models here
 @admin.register(CustomUser)
 class UserAdminConfig(admin.ModelAdmin):
-   search_field = ('email','user_name')
+   search_field = ('email','username')
    ordering = ('-start_date',)
-   list_filter = ('email', 'user_name', 'first_name', 'is_active', 'is_staff')
-   list_display = ('email', 'user_name', 'first_name', 'is_active')
+   list_filter = ('email', 'username', 'first_name', 'is_active', 'is_staff')
+   list_display = ('email', 'username', 'first_name', 'is_active')
    fieldsets = (
        (None, {
            "fields": (

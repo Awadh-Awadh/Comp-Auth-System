@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 
 class CustomUserManager(BaseUserManager):
-    def create_user(self, email, user_name, first_name, password, **others_fields):
+    def create_user(self, email, username, first_name, password, **others_fields):
 
       if not email:
           raise ValueError(_("Value must be set"))
@@ -12,11 +12,11 @@ class CustomUserManager(BaseUserManager):
       """normalize_email() is used for lowercasing the domain part of """
 
       email = self.normalize_email(email)
-      user = self.model(email=email, user_name=user_name, first_name=first_name, **others_fields)
+      user = self.model(email=email, username=username, first_name=first_name, **others_fields)
       user.set_password(password)
       user.save()
       return user
-    def create_superuser(self, email, user_name, first_name, password, **other_fields):
+    def create_superuser(self, email, username, first_name, password, **other_fields):
         other_fields.setdefault('is_staff', True)
         other_fields.setdefault('is_superuser', True)
         other_fields.setdefault('is_active',True)
@@ -32,7 +32,7 @@ class CustomUserManager(BaseUserManager):
 
             )
 
-        return self.create_user(email, user_name, first_name, password, **other_fields)
+        return self.create_user(email, username, first_name, password, **other_fields)
 
 
 
@@ -43,7 +43,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
      """
 
      email = models.EmailField(_('email address'), unique= True)
-     user_name = models.CharField(max_length=200, unique=True)
+     username = models.CharField(max_length=200, unique=True)
      first_name = models.CharField(max_length=200)
      start_date = models.DateTimeField(default= timezone.now)
      about = models.CharField(_("about"), max_length=500, blank = True)
@@ -52,7 +52,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
      objects = CustomUserManager()
 
      USERNAME_FIELD = 'email'
-     REQUIRED_FIELDS = ['user_name', 'first_name']
+     REQUIRED_FIELDS = ['username', 'first_name']
 
      def __str__(self):
          return self.user_name
