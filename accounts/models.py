@@ -55,7 +55,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
      REQUIRED_FIELDS = ['username', 'first_name']
 
      def __str__(self):
-         return self.user_name
+         return self.username
      
      
 class Profile(models.Model):

@@ -129,8 +129,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-SITE_ID = 2
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
@@ -151,5 +149,18 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 
-#1024024566233-427d5mvu2timcunvb2366u825fn19cq7.apps.googleusercontent.com
-#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
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL  = 'login'
+
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}

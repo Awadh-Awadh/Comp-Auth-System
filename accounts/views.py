@@ -17,5 +17,5 @@ def reg(request):
       'form':form
     }
 
-    return render(request, 'accounts/reg.html', context)
+    return render(request, 'account/reg.html', context)
 
