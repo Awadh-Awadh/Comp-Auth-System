@@ -19,3 +19,8 @@ def reg(request):
 
     return render(request, 'account/reg.html', context)
 
+def landing_page(request):
+    pass
+
+def home(request):
+  return render(request, home.html)
