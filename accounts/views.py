@@ -20,7 +20,7 @@ def reg(request):
     return render(request, 'account/reg.html', context)
 
 def landing_page(request):
-    pass
+    return render(request, "main/landing.html")
 
 def home(request):
-  return render(request, home.html)
+  return render(request, "main/home.html")
