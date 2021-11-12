@@ -1,0 +1,12 @@
+.google{
+  margin: 2rem 0;
+  display: flex;
+  justify-content: center;
+}
+.custom {
+  padding: 1rem 3rem;
+  width: 100%;
+}
+.google a{
+  font-size: 2rem;
+}
