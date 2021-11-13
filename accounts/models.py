@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
+from random import choice
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, username, first_name, password, **others_fields):
@@ -48,7 +49,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
      start_date = models.DateTimeField(default= timezone.now)
      about = models.CharField(_("about"), max_length=500, blank = True)
      is_staff = models.BooleanField(default= False)
-     is_active = models.BooleanField(default = False)
+     is_active = models.BooleanField(default = True)
      objects = CustomUserManager()
 
      USERNAME_FIELD = 'email'
@@ -62,3 +63,32 @@ class Profile(models.Model):
   user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
   pp = ...
   
+
+
+class Code(models.Model):
+    number = models.CharField(max_length=5, blank = True)
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+    
+    """
+    Just before saving the the number we create a random string for it by overiding the save method
+    
+    
+    """
+
+
+    def save(self, *args, **kwargs):
+        """A function that creates five random numbers in a given list of numbers"""
+        number_list = [x for x in range(0,11)]
+        code_list = []
+
+        for _ in range(5):
+            num = choice(number_list)
+            code_list.append(num)
+
+        #joining all the five random numbers into a string using a tuple comprehension
+        code_string = "".join(str(item) for item in code_list)
+        self.number = code_string
+        super().save(*args, **kwargs)

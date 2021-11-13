@@ -152,6 +152,9 @@ AUTHENTICATION_BACKENDS = [
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL  = 'login'
 
+#for login_requred
+LOGIN_URL = '/login/'
+
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {

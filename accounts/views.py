@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import CustomCreationForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def log(request):
@@ -22,5 +23,7 @@ def reg(request):
 def landing_page(request):
     return render(request, "main/landing.html")
 
+@login_required
 def home(request):
+  
   return render(request, "main/home.html")

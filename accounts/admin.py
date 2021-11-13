@@ -13,7 +13,7 @@ class UserAdminConfig(admin.ModelAdmin):
    fieldsets = (
        (None, {
            "fields": (
-               'email', 'user_name', 'first_name'
+               'email', 'username', 'first_name'
            ),
        }),
        ('permissions', {
