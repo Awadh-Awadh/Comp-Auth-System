@@ -1,6 +1,5 @@
 from django.contrib import admin
-from django.db.models.fields import TextField
-from .models import CustomUser, Profile
+from .models import CustomUser, Profile, Code
 
 
 # Register your models here
@@ -23,16 +22,13 @@ class UserAdminConfig(admin.ModelAdmin):
          "fields": ('about',)
        }),
    )
-
-  #  formfield_overrides = {
-  #    CustomUser.about: {'widget' : Textarea(attrs={'rows':10, 'cols': 40})}
-  #  }
    add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'password1', 'password2', 'is_staff', 'is_active')}
+            'fields': ('username','email', 'password1', 'password2', 'is_staff', 'is_active')}
         ),
     )
 
 
 admin.site.register(Profile)
+admin.site.register(Code)

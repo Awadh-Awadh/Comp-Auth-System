@@ -62,6 +62,12 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 class Profile(models.Model):
   user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
   pp = ...
+
+  def __str__(self):
+     return self.user.username
+
+ 
+  
   
 
 
@@ -70,7 +76,7 @@ class Code(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return self.number
     
     """
     Just before saving the the number we create a random string for it by overiding the save method
@@ -81,10 +87,10 @@ class Code(models.Model):
 
     def save(self, *args, **kwargs):
         """A function that creates five random numbers in a given list of numbers"""
-        number_list = [x for x in range(0,11)]
+        number_list = [x for x in range(10)]
         code_list = []
 
-        for _ in range(5):
+        for i in range(5):
             num = choice(number_list)
             code_list.append(num)
 
