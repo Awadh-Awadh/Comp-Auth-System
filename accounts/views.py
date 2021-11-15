@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login
 from .models import CustomUser, Code
+from django.core.mail import send_mail
+from django.conf import settings
 # Create your views here.
 def log(request):
   form = AuthenticationForm()
@@ -13,8 +15,13 @@ def log(request):
       user = authenticate(request, username = username, password = password)
 
       if user is not None:
+          user_obtained = CustomUser.objects.get(username=username)
           request.session['id'] = user.id
-          #send mail
+          recepient_list = [form.cleaned_data['email'],]
+          subject = f"Verification Code"
+          message = f"Hello {user_obtained.username}. Your verification code is {user_obtained.code}"
+          email_from = settings.EMAIL_HOST_USER
+          send_mail(subject, message, email_from, recepient_list)
           return redirect(verify_view)
   return render(request, 'account/login.html', {'form':form})
 
