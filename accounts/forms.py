@@ -1,4 +1,4 @@
-from .models import CustomUser, Profile
+from .models import Code, CustomUser, Profile
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from django import forms
 
@@ -16,4 +16,5 @@ class CustomUserChange(UserChangeForm):
 class CodeForm(forms.ModelForm):
     number = forms.CharField(label='Code', help_text= "Please Enter verification code sent to your email")
     class Meta:
+        model = Code
         fields = ('number',)
