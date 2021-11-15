@@ -15,11 +15,10 @@ def log(request):
       user = authenticate(request, username = username, password = password)
 
       if user is not None:
-          user_obtained = CustomUser.objects.get(username=username)
           request.session['id'] = user.id
-          recepient_list = [form.cleaned_data['email'],]
+          recepient_list = [user.email,]
           subject = f"Verification Code"
-          message = f"Hello {user_obtained.username}. Your verification code is {user_obtained.code}"
+          message = f"Hello {user.username}. Your verification code is {user.code}"
           email_from = settings.EMAIL_HOST_USER
           send_mail(subject, message, email_from, recepient_list)
           return redirect(verify_view)
