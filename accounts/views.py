@@ -7,6 +7,8 @@ from .models import CustomUser, Code
 from django.core.mail import send_mail
 from django.conf import settings
 # Create your views here.
+
+
 def log(request):
   form = AuthenticationForm()
   if request.method == "POST":
