@@ -1,6 +1,6 @@
 {% extends 'account/base.html' %}
 
-
+{% load static %}
 
 {% block content %}
 {% load crispy_forms_tags %}
@@ -27,9 +27,12 @@
       </div>     
     </div>
     <div class="col-md-6">
-      <div class="content">
+      <div class="content text-center">
+        <div class="img">
+          <img class ="img-sign" src="{% static 'images/login.png' %}" alt="">  
+        </div>
         <h5>Have an Account?</h5>
-        <a href="{% url "login" %}"><button class = 'btn btn-lg btn-outline-dark'>Sign In</button></a>
+        <a href="{% url 'login' %}"><button class = 'btn btn-lg btn-outline-dark'>Sign In</button></a>
       </div>
     </div>
     
